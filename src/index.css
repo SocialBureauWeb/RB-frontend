@@ -1,0 +1,15 @@
+@import "tailwindcss";
+/* small helpers */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: ui-serif, Georgia, "Times New Roman", serif;
+  }
+}
