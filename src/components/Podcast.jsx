@@ -19,7 +19,8 @@ export default function Podcast() {
             </h2>
 
             <p className="text-gray-700 max-w-2xl leading-relaxed">
-              RealtyBureau, a company that is part of the Trillion Edition network, a trillionaire networking company with more than a decade of field expertise, was established to ensure that every buyer gets access to verified, high-value land opportunities in total harmony with themselves.</p>
+              High-end properties that offer exceptional quality, exclusive locations, premium amenities, and superior design. These residences often feature stunning architecture, expansive spaces, state-of-the-art technology, and breathtaking views—catering to affluent buyers seeking comfort, privacy, and prestige.
+            </p>
 
             <div className="mt-8 flex justify-center lg:justify-start">
               <a

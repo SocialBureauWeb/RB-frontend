@@ -7,6 +7,8 @@ import AddProperty from './pages/AddProperty'
 import Commercial from './pages/Commercial'
 import { Login } from './pages/Login'
 import { Signup } from './pages/Signup'
+import Wishlist from './pages/Wishlist'
+import Modal from './components/Modal'
 
 export default function App() {  
   return (
@@ -20,6 +22,8 @@ export default function App() {
         <Route path="/commercial" element={<Commercial />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/modal" element={<Modal />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

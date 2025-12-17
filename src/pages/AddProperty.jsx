@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BASE_URL } from '../../utils/urls';
+import { BASE_URL } from '../utils/urls';
 import Navbar from '../components/Navbar';
 
 export default function AddProperty() {
@@ -51,42 +51,85 @@ export default function AddProperty() {
     }
   };
 
-  const handleImageUpload = async (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  // const handleImageUpload = async (e) => {
+  //   const file = e.target.files?.[0];
+  //   if (!file) return;
 
-    setUploadingImage(true);
-    const formData = new FormData();
-    formData.append('file', file);
+  //   setUploadingImage(true);
+  //   const formData = new FormData();
+  //   formData.append('file', file);
 
-    try {
-      const response = await fetch(`${BASE_URL}/upload/image`, {
-        method: 'POST',
+  //   try {
+  //     const response = await fetch(`${BASE_URL}/upload/image`, {
+  //       method: 'POST',
+  //       body: formData,
+  //     });
+
+  //     const data = await response.json();
+
+  //     if (data.success) {
+  //       // Automatically add uploaded image to the images array
+  //       setFormData(prev => ({
+  //         ...prev,
+  //         images: [...prev.images, { url: data.data.url, alt: imageInput.alt || file.name }]
+  //       }));
+  //       setImageInput({ url: '', alt: '' });
+  //       setMessage({ type: 'success', text: 'Image uploaded and added!' });
+  //       setTimeout(() => setMessage({ type: '', text: '' }), 3000);
+  //     } else {
+  //       setMessage({ type: 'error', text: data.message || 'Upload failed' });
+  //     }
+  //   } catch (error) {
+  //     setMessage({ type: 'error', text: 'Upload error. Please try again.' });
+  //     console.error('Upload error:', error);
+  //   } finally {
+  //     setUploadingImage(false);
+  //     e.target.value = ''; // Reset file input
+  //   }
+  // };
+
+  const handleMultipleImageUpload = async (e) => {
+  const files = Array.from(e.target.files);
+  if (!files.length) return;
+
+  setUploadingImage(true);
+
+  try {
+    const uploadedImages = [];
+
+    for (let file of files) {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch(`${BASE_URL}/upload/image`, {
+        method: "POST",
         body: formData,
       });
 
-      const data = await response.json();
+      const data = await res.json();
 
       if (data.success) {
-        // Automatically add uploaded image to the images array
-        setFormData(prev => ({
-          ...prev,
-          images: [...prev.images, { url: data.data.url, alt: imageInput.alt || file.name }]
-        }));
-        setImageInput({ url: '', alt: '' });
-        setMessage({ type: 'success', text: 'Image uploaded and added!' });
-        setTimeout(() => setMessage({ type: '', text: '' }), 3000);
-      } else {
-        setMessage({ type: 'error', text: data.message || 'Upload failed' });
+        uploadedImages.push({
+          url: data.data.url,
+          alt: file.name,
+        });
       }
-    } catch (error) {
-      setMessage({ type: 'error', text: 'Upload error. Please try again.' });
-      console.error('Upload error:', error);
-    } finally {
-      setUploadingImage(false);
-      e.target.value = ''; // Reset file input
     }
-  };
+
+    setFormData(prev => ({
+      ...prev,
+      images: [...prev.images, ...uploadedImages],
+    }));
+
+    setMessage({ type: "success", text: `${uploadedImages.length} image(s) uploaded!` });
+  } catch (err) {
+    console.log(err);
+    setMessage({ type: "error", text: "Upload failed." });
+  }
+
+  setUploadingImage(false);
+  e.target.value = "";
+};
 
   const removeImage = (index) => {
     setFormData(prev => ({
@@ -424,8 +467,8 @@ export default function AddProperty() {
             <input
               type="file"
               accept="image/jpeg,image/png,image/jpg,image/webp"
-              onChange={handleImageUpload}
-              disabled={uploadingImage}
+              multiple
+              onChange={handleMultipleImageUpload}
               className="flex-1 px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#2b54a2]"
             />
             {uploadingImage && (
