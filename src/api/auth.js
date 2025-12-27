@@ -17,6 +17,6 @@ export async function googleLogin(credential) {
 
 
 export const signupUser = async (formData) => {
-  return await axios.post(`${BASE_URL}api/auth/signup`, formData);
+  return await axios.post(`${BASE_URL}/api/auth/signup`, formData);
 };
 
