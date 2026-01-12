@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL } from "../utils/urls";
+import { BASE_URL } from "../../utils/urls";
 
 // Normal Email/Password Login
 export async function loginUser(form) {

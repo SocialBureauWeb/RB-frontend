@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
-import { BASE_URL } from "../utils/urls";
 import PropertyCard from "../components/PropertyCard";
 import Modal from "../components/Modal";
+import { BASE_URL } from "../../utils/urls";
 
 export default function Wishlist() {
   const [wishlistItems, setWishlistItems] = useState([]);
@@ -58,28 +58,8 @@ export default function Wishlist() {
 
   // Remove item from wishlist
   const removeFromWishlist = async (plotId) => {
-    try {
-      const token = localStorage.getItem("token");
-
-      if (!token) {
-        alert("Please login first");
-        return;
-      }
-
-      await axios.post(
-        `${BASE_URL}/api/wishlist/remove`,
-        { plotId },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-
-      setWishlistItems((prev) =>
-        prev.filter((item) => item._id !== plotId)
-      );
-
-    } catch (err) {
-      console.error("Error removing from wishlist:", err);
-      alert("Failed to remove from wishlist");
-    }
+    // This is handled by PropertyCard component now
+    // This function can be removed if not used elsewhere
   };
 
   const formatPrice = (price) => {
@@ -155,17 +135,16 @@ export default function Wishlist() {
                   className="relative group cursor-pointer"
                   onClick={() => setSelectedProperty(property)}
                 >
-                  <PropertyCard property={property} />
-
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      removeFromWishlist(property._id);
+                  <PropertyCard 
+                    property={property}
+                    onWishlistChange={(id, isAdded) => {
+                      if (!isAdded) {
+                        setWishlistItems((prev) =>
+                          prev.filter((item) => item._id !== id)
+                        );
+                      }
                     }}
-                    className="absolute top-3 right-3 bg-red-500 hover:bg-red-600 text-white text-sm px-4 py-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 shadow-lg"
-                  >
-                    Remove ♥
-                  </button>
+                  />
                 </div>
               ))}
             </div>

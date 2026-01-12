@@ -19,9 +19,11 @@ export default function Podcast() {
             </h2>
 
             <p className="text-gray-700 max-w-2xl leading-relaxed">
-              High-end properties that offer exceptional quality, exclusive locations, premium amenities, and superior design. These residences often feature stunning architecture, expansive spaces, state-of-the-art technology, and breathtaking views—catering to affluent buyers seeking comfort, privacy, and prestige.
+              Real estate is not just about property or paperwork. It’s about trust, responsibility, and the future people place in our hands. Every decision we help make should stand strong years later, not just on the day the deal is closed.”
             </p>
-
+            <p className="text-align-left text-gray-700 max-w-2xl leading-relaxed">
+              — Alen Jacob, Founder, RealtyBureau
+            </p>
             <div className="mt-8 flex justify-center lg:justify-start">
               <a
                 href="#listen"

@@ -14,7 +14,7 @@ const properties = [
     title: "Villa in Sankt Goar",
     location: "Villa in Sankt Goar, Rhineland-Palatinate, Germany",
     image:
-      "https://images.unsplash.com/photo-1544016659-7f8a387f9a2f?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
     badge: "Video",
   },
   {
@@ -32,7 +32,7 @@ const properties = [
     title: "Townhouse in El Chorro",
     location: "Townhouse in El Chorro, Maldonado Department, Uruguay",
     image:
-      "https://images.unsplash.com/photo-1505691723518-36a4a2866a3c?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
     badge: "Video",
   },
   {
@@ -41,7 +41,7 @@ const properties = [
     title: "Castle in Campiglia Marittima",
     location: "Castle in Campiglia Marittima, Tuscany, Italy",
     image:
-      "https://images.unsplash.com/photo-1533105071790-9f5b2f5f2178?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
   },
 ];
 

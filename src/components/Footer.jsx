@@ -78,12 +78,16 @@ export default function Footer() {
         <div className="flex flex-col items-center text-center order-2 lg:order-1 lg:items-start lg:text-left">
           {/* JE shield */}
           <div className="flex items-center gap-3">
-            <span
-              className="flex items-center justify-center h-8 w-8 rounded-md bg-neutral-800 text-gray-200 font-semibold text-sm"
-              aria-hidden
+            <div
+              className="flex items-center cursor-pointer"
+              onClick={() => navigate("/")}
             >
-              RB
-            </span>
+              <img
+                src="/assets/realtybureau.png"
+                alt="RealtyBureau"
+                className="h-8 md:h-10 transition-all duration-300"
+              />
+            </div>
 
             <div className="hidden lg:block">
               {/* on desktop show copyright to the right of the shield */}
