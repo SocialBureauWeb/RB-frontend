@@ -729,7 +729,7 @@ export default function Modal({ property, onClose, formatPrice }) {
   ];
 
   const handleContactViaWhatsApp = () => {
-    const phoneNumber = "918921840486";
+    const phoneNumber = "+919778455812";
     const message = `Hello, I would like to know more about this plot: ${property.title}. 
 Plot Size: ${property.plotSize?.toLocaleString()} sq.ft
 Location: ${property.location?.address || property.location?.city}
