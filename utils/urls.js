@@ -1,2 +1,2 @@
 // export const BASE_URL = "http://localhost:5000"
-export const BASE_URL = "https://vercel.com/socialbureauwebs-projects/realty-bureau-backend"
+export const BASE_URL = "https://realty-bureau-backend.vercel.app"
