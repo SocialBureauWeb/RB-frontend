@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import PropertyCard from "./PropertyCard";
 import Modal from "./Modal";
 import { getTrendingPlots } from "../../services/plotService";
+import { BASE_URL } from "../../utils/urls";
 
 export default function Trending() {
   const scrollRef = useRef(null);
@@ -41,7 +42,6 @@ export default function Trending() {
     if (!token) return;
 
     try {
-      const BASE_URL = "http://localhost:5000";
       const res = await fetch(`${BASE_URL}/api/wishlist`, {
         headers: {
           Authorization: `Bearer ${token}`,
