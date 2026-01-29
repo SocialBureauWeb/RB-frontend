@@ -31,7 +31,7 @@ const Categories = () => {
       title: "Commercial",
       listings: counts.Commercial,
       image:
-        "https://res.cloudinary.com/dtwcgfmar/image/upload/v1761135354/Untitled_design_2_1_janmn3.png",
+        "https://res.cloudinary.com/dtwcgfmar/image/upload/v1769161425/modern-luxury-hotel-office-reception-lounge-with-meeting-room_v8e93o.jpg",
       href: "/commercial",
     },
     {
@@ -39,7 +39,7 @@ const Categories = () => {
       title: "Residence",
       listings: counts.Residence,
       image:
-        "https://res.cloudinary.com/dtwcgfmar/image/upload/v1761137194/realtybureau_1_puwbp4.png",
+        "https://res.cloudinary.com/dtwcgfmar/image/upload/v1769161425/modern-luxury-home-with-beautiful-landscape_r2ncki.jpg",
       href: "/residential",
     },
   ];

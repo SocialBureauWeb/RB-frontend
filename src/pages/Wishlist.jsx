@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import PropertyCard from "../components/PropertyCard";
 import Modal from "../components/Modal";
@@ -9,7 +10,7 @@ export default function Wishlist() {
   const [wishlistItems, setWishlistItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [selectedProperty, setSelectedProperty] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadWishlist();
@@ -20,7 +21,7 @@ export default function Wishlist() {
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
-      
+
       if (!token) {
         setWishlistItems([]);
         setLoading(false);
@@ -68,9 +69,7 @@ export default function Wishlist() {
     return `₹${price.toLocaleString('en-IN')}`;
   };
 
-  const closeModal = () => {
-    setSelectedProperty(null);
-  };
+
 
   if (loading) {
     return (
@@ -130,12 +129,12 @@ export default function Wishlist() {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {wishlistItems.map((property) => (
-                <div 
-                  key={property._id} 
+                <div
+                  key={property._id}
                   className="relative group cursor-pointer"
-                  onClick={() => setSelectedProperty(property)}
+                  onClick={() => navigate(`/property/${property.slug || property._id}`)}
                 >
-                  <PropertyCard 
+                  <PropertyCard
                     property={property}
                     onWishlistChange={(id, isAdded) => {
                       if (!isAdded) {
@@ -152,13 +151,7 @@ export default function Wishlist() {
         </div>
       </div>
 
-      {selectedProperty && (
-        <Modal 
-          property={selectedProperty}
-          onClose={closeModal}
-          formatPrice={formatPrice}
-        />
-      )}
-    </div>  
+
+    </div>
   );
 }

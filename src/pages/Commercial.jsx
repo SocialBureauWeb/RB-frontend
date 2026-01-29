@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Add this import
 import PropertyCard from '../components/PropertyCard';
 import Navbar from '../components/Navbar';
 import { BASE_URL } from '../../utils/urls';
+import toast from 'react-hot-toast'; // Add this import
 
 export default function Commercial() {
   const [plots, setPlots] = useState([]);
@@ -17,7 +19,8 @@ export default function Commercial() {
   });
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [selectedPlot, setSelectedPlot] = useState(null);
+
+  const navigate = useNavigate(); // Initialize navigate
 
   // Helper function to convert cent to sqft
   const convertToSqft = (size) => {
@@ -27,18 +30,18 @@ export default function Commercial() {
   // Helper function to display plot size
   const displayPlotSize = (plot) => {
     if (!plot.plotSize) return 'N/A';
-    
+
     // If plotSize is an object with value and unit
     if (typeof plot.plotSize === 'object' && plot.plotSize.value) {
       const value = plot.plotSize.value;
       const unit = plot.plotSize.unit;
-      
+
       if (unit === 'cent') {
         return `${value} cent (${convertToSqft(value).toLocaleString()} sq.ft)`;
       }
       return `${value.toLocaleString()} sq.ft`;
     }
-    
+
     // Fallback for old format (just number)
     return `${plot.plotSize.toLocaleString()} sq.ft`;
   };
@@ -75,9 +78,11 @@ export default function Commercial() {
         setTotalPages(data.meta.pages);
       } else {
         setError(data.message || 'Failed to fetch properties');
+        toast.error(data.message || 'Failed to fetch properties');
       }
     } catch (err) {
       setError('Network error. Please try again.');
+      toast.error('Network error. Please try again.');
       console.error('Fetch error:', err);
     } finally {
       setLoading(false);
@@ -103,7 +108,7 @@ export default function Commercial() {
 
       const data = await res.json();
       if (data.success && Array.isArray(data.wishlist)) {
-        const ids = data.wishlist.map(item => 
+        const ids = data.wishlist.map(item =>
           typeof item === 'string' ? item : item._id
         );
         setWishlist(ids);
@@ -113,13 +118,20 @@ export default function Commercial() {
     }
   };
 
-  // Toggle wishlist (add/remove)
+  // Toggle wishlist (add/remove) - UPDATED with toast and redirect
   const toggleWishlist = async (plotId, e) => {
     e.stopPropagation();
 
     const token = localStorage.getItem('token');
     if (!token) {
-      alert('Please login to use wishlist');
+      toast.error('Please login to use wishlist');
+
+      // Redirect to login after toast
+      setTimeout(() => {
+        navigate('/login', {
+          state: { from: window.location.pathname }
+        });
+      }, 1500);
       return;
     }
 
@@ -141,15 +153,17 @@ export default function Commercial() {
       if (data.success) {
         if (isWished) {
           setWishlist(prev => prev.filter(id => id !== plotId));
+          toast.error('Property removed from wishlist');
         } else {
           setWishlist(prev => [...prev, plotId]);
+          toast.success('Property added to wishlist');
         }
       } else {
-        alert(data.message || 'Failed to update wishlist');
+        toast.error(data.message || 'Failed to update wishlist');
       }
     } catch (err) {
       console.error('Wishlist error:', err);
-      alert('Error updating wishlist. Please try again.');
+      toast.error('Error updating wishlist. Please try again.');
     }
   };
 
@@ -167,6 +181,7 @@ export default function Commercial() {
       sort: '-createdAt'
     });
     setPage(1);
+    toast.success('Filters reset successfully');
   };
 
   const formatPrice = (price) => {
@@ -175,12 +190,27 @@ export default function Commercial() {
     return `₹${price.toLocaleString('en-IN')}`;
   };
 
-  const openModal = (plot) => {
-    setSelectedPlot(plot);
-  };
 
-  const closeModal = () => {
-    setSelectedPlot(null);
+
+  // Optional: Add function to handle contact agent
+  const handleContactAgent = (plot) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      toast.error('Please login to contact agent');
+
+      setTimeout(() => {
+        navigate('/login', {
+          state: {
+            from: window.location.pathname,
+            message: 'Please login to contact the property agent'
+          }
+        });
+      }, 1500);
+      return;
+    }
+
+    // Your contact agent logic here
+    toast.success('Agent contact request sent successfully!');
   };
 
   return (
@@ -299,7 +329,7 @@ export default function Commercial() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
               </svg>
               <p className="mt-3 text-gray-600 max-w-md mx-auto">
-                We couldn't find any commercial properties matching your criteria. 
+                We couldn't find any commercial properties matching your criteria.
                 <br />
                 <span className="text-[#2b54a2] font-medium">But don't worry, your perfect space is out there!</span>
               </p>
@@ -319,7 +349,7 @@ export default function Commercial() {
                 {plots.map((plot) => (
                   <div
                     key={plot._id}
-                    onClick={() => openModal(plot)}
+                    onClick={() => navigate(`/property/${plot.slug || plot._id}`)}
                     className="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer group"
                   >
                     {/* Image */}
@@ -356,11 +386,10 @@ export default function Commercial() {
                       </button>
 
                       {/* Status Badge */}
-                      <span className={`absolute top-3 right-3 px-2 py-1 text-xs font-semibold rounded ${
-                        plot.status === 'Available' ? 'bg-[#2b54a2] text-white' :
+                      <span className={`absolute top-3 right-3 px-2 py-1 text-xs font-semibold rounded ${plot.status === 'Available' ? 'bg-[#2b54a2] text-white' :
                         plot.status === 'Reserved' ? 'bg-yellow-500 text-white' :
-                        'bg-red-500 text-white'
-                      }`}>
+                          'bg-red-500 text-white'
+                        }`}>
                         {plot.status}
                       </span>
                     </div>
@@ -369,7 +398,7 @@ export default function Commercial() {
                     <div className="p-4">
                       <h3 className="text-lg font-semibold text-gray-900 mb-2 truncate">{plot.title}</h3>
                       <p className="text-sm text-gray-600 mb-3 line-clamp-2">{plot.description}</p>
-                      
+
                       <div className="flex items-center justify-between text-sm mb-2">
                         <span className="text-gray-500">Size:</span>
                         <span className="font-medium text-gray-900">
@@ -400,17 +429,16 @@ export default function Commercial() {
                   >
                     Previous
                   </button>
-                  
+
                   <div className="flex gap-2">
                     {[...Array(totalPages)].map((_, i) => (
                       <button
                         key={i + 1}
                         onClick={() => setPage(i + 1)}
-                        className={`w-10 h-10 rounded-md ${
-                          page === i + 1
-                            ? 'bg-[#2b54a2] text-white'
-                            : 'border border-gray-300 hover:bg-gray-50'
-                        }`}
+                        className={`w-10 h-10 rounded-md ${page === i + 1
+                          ? 'bg-[#2b54a2] text-white'
+                          : 'border border-gray-300 hover:bg-gray-50'
+                          }`}
                       >
                         {i + 1}
                       </button>
@@ -430,130 +458,7 @@ export default function Commercial() {
           )}
         </div>
 
-        {/* Modal */}
-        {selectedPlot && (
-          <div
-            className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 overflow-y-auto"
-            onClick={closeModal}
-          >
-            <div
-              className="bg-white rounded-lg max-w-4xl w-full my-8"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Modal Header */}
-              <div className="flex justify-between items-start p-6 border-b">
-                <div>
-                  <h2 className="text-2xl font-bold text-gray-900">{selectedPlot.title}</h2>
-                  <p className="text-[#2b54a2] text-xl font-semibold mt-1">{formatPrice(selectedPlot.price)}</p>
-                </div>
-                <button
-                  onClick={closeModal}
-                  className="text-gray-400 hover:text-gray-600"
-                >
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
 
-              {/* Modal Body */}
-              <div className="p-6 max-h-[70vh] overflow-y-auto">
-                {/* Images */}
-                {selectedPlot.images && selectedPlot.images.length > 0 && (
-                  <div className="mb-6">
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                      {selectedPlot.images.map((img, index) => (
-                        <img
-                          key={index}
-                          src={img.url}
-                          alt={img.alt || selectedPlot.title}
-                          className="w-full h-48 object-cover rounded-lg"
-                        />
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Videos */}
-                {selectedPlot.videos && selectedPlot.videos.length > 0 && (
-                  <div className="mb-6">
-                    <h3 className="text-lg font-semibold mb-3">Videos</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {selectedPlot.videos.map((video, index) => (
-                        <video
-                          key={index}
-                          controls
-                          poster={video.thumbnail}
-                          className="w-full rounded-lg"
-                        >
-                          <source src={video.url} type="video/mp4" />
-                        </video>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Details */}
-                <div className="grid md:grid-cols-2 gap-6 mb-6">
-                  <div>
-                    <h3 className="text-lg font-semibold mb-3">Property Details</h3>
-                    <dl className="space-y-2">
-                      <div className="flex justify-between">
-                        <dt className="text-gray-600">Plot Size:</dt>
-                        <dd className="font-medium">{displayPlotSize(selectedPlot)}</dd>
-                      </div>
-                      <div className="flex justify-between">
-                        <dt className="text-gray-600">Category:</dt>
-                        <dd className="font-medium">{selectedPlot.category}</dd>
-                      </div>
-                      <div className="flex justify-between">
-                        <dt className="text-gray-600">Status:</dt>
-                        <dd className={`font-medium ${
-                          selectedPlot.status === 'Available' ? 'text-green-600' :
-                          selectedPlot.status === 'Reserved' ? 'text-yellow-600' :
-                          'text-red-600'
-                        }`}>
-                          {selectedPlot.status}
-                        </dd>
-                      </div>
-                    </dl>
-                  </div>
-
-                  <div>
-                    <h3 className="text-lg font-semibold mb-3">Location</h3>
-                    <address className="not-italic text-gray-600 space-y-1">
-                      {selectedPlot.location?.address && <p>{selectedPlot.location.address}</p>}
-                      {selectedPlot.location?.city && <p>{selectedPlot.location.city}</p>}
-                      {selectedPlot.location?.district && <p>{selectedPlot.location.district}</p>}
-                      {selectedPlot.location?.state && <p>{selectedPlot.location.state}</p>}
-                      {selectedPlot.location?.pincode && <p>{selectedPlot.location.pincode}</p>}
-                    </address>
-                  </div>
-                </div>
-
-                <div className="mb-6">
-                  <h3 className="text-lg font-semibold mb-3">Description</h3>
-                  <p className="text-gray-600">{selectedPlot.description}</p>
-                </div>
-              </div>
-
-              {/* Modal Footer */}
-              <div className="p-6 border-t bg-gray-50 flex gap-3">
-                <button
-                  onClick={closeModal}
-                  className="flex-1 px-6 py-3 border border-gray-300 rounded-md hover:bg-gray-100 font-medium"
-                >
-                  Close
-                </button>
-                <button
-                  className="flex-1 px-6 py-3 bg-[#2b54a2] text-white rounded-md hover:bg-green-700 font-medium"
-                >
-                  Contact Agent
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     </>
   );

@@ -1,10 +1,12 @@
 import React, { useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import PropertyCard from "./PropertyCard";
 import Modal from "./Modal";
 import { getTrendingPlots } from "../../services/plotService";
 import { BASE_URL } from "../../utils/urls";
 
 export default function Trending() {
+  const navigate = useNavigate();
   const scrollRef = useRef(null);
 
   const [plots, setPlots] = useState([]);
@@ -85,11 +87,43 @@ export default function Trending() {
 
   /* -------------------- RENDER STATES -------------------- */
 
+  // if (loading) {
+  //   return (
+  //     <section className="px-6 py-10">
+  //       <div className="flex justify-center h-64">
+  //         <div className="animate-spin h-12 w-12 border-b-2 border-[#2b54a2]" />
+  //       </div>
+  //     </section>
+  //   );
+  // }
+
+  // Option 1: Smaller version of current SVG (32x32 instead of 64x64)
   if (loading) {
     return (
       <section className="px-6 py-10">
-        <div className="flex justify-center h-64">
-          <div className="animate-spin h-12 w-12 border-b-2 border-[#2b54a2]" />
+        <div className="flex flex-col items-center justify-center h-64 gap-4">
+          <svg
+            className="animate-pulse"
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#2b54a2"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <rect x="3" y="3" width="7" height="18" />
+            <rect x="14" y="8" width="7" height="13" />
+            <line x1="6.5" y1="7" x2="6.5" y2="7" />
+            <line x1="6.5" y1="11" x2="6.5" y2="11" />
+            <line x1="6.5" y1="15" x2="6.5" y2="15" />
+            <line x1="17.5" y1="12" x2="17.5" y2="12" />
+            <line x1="17.5" y1="16" x2="17.5" y2="16" />
+          </svg>
+          <p className="text-sm text-gray-500 tracking-wide">
+            Finding trending properties…
+          </p>
         </div>
       </section>
     );
@@ -161,7 +195,7 @@ export default function Trending() {
         {plots.map((plot) => (
           <div
             key={plot._id}
-            onClick={() => setSelectedPlot(plot)}
+            onClick={() => navigate(`/property/${plot.slug || plot._id}`)}
             className="cursor-pointer"
           >
             <PropertyCard
@@ -174,13 +208,13 @@ export default function Trending() {
       </div>
 
       {/* MODAL */}
-      {selectedPlot && (
+      {/* {selectedPlot && (
         <Modal
           property={selectedPlot}
           onClose={() => setSelectedPlot(null)}
           formatPrice={formatPrice}
         />
-      )}
+      )} */}
     </section>
   );
 }
