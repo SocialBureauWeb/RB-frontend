@@ -1664,8 +1664,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // Add this import
 import PropertyCard from '../components/PropertyCard';
 import Navbar from '../components/Navbar';
-import { BASE_URL } from '../../utils/urls';
 import toast from 'react-hot-toast';
+import { BASE_URL } from '../../utils/urls';
 
 export default function Residential() {
   const [plots, setPlots] = useState([]);

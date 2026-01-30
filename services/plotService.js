@@ -2,6 +2,7 @@
 
 import { BASE_URL } from "../utils/urls";
 
+
 // export const getTrendingPlots = async () => {
 //   const params = new URLSearchParams({
 //     approved: "true",
