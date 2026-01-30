@@ -235,8 +235,8 @@
 
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { BASE_URL } from "../../utils/urls";
 import toast from "react-hot-toast";
+import { BASE_URL } from "../../utils/urls";
 
 export default function PropertyDetailsPage() {
   const { slug } = useParams();

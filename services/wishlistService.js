@@ -2,6 +2,7 @@
 
 import { BASE_URL } from "../utils/urls";
 
+
 // const getToken = () => localStorage.getItem("token");
 
 // export const fetchWishlist = async () => {

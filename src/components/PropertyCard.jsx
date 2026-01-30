@@ -170,9 +170,9 @@
 
 
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Add this import
-import { BASE_URL } from "../../utils/urls";
+import { useNavigate } from "react-router-dom"; 
 import toast from "react-hot-toast";
+import { BASE_URL } from "../../utils/urls";
 
 export default function PropertyCard({ property, onWishlistChange }) {
   const [saved, setSaved] = useState(false);

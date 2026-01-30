@@ -575,6 +575,12 @@ export default function Navbar({ onSearch }) {
               >
                 About
               </button>
+              <button
+                onClick={() => navigate("/contact")}
+                className={`px-3 py-2 rounded-xl transition-all font-medium ${textColor} ${scrolled ? 'hover:bg-gray-100' : 'hover:bg-white/10'}`}
+              >
+                Contact
+              </button>
 
               {/* User Actions */}
               <div className="relative">
@@ -675,6 +681,12 @@ export default function Navbar({ onSearch }) {
                   className="w-full flex items-center px-4 py-3 rounded-xl hover:bg-gray-50 transition-colors text-left"
                 >
                   <span className="font-medium text-gray-900">About Us</span>
+                </button>
+                <button
+                  onClick={() => { navigate("/contact"); setMenuOpen(false); }}
+                  className="w-full flex items-center px-4 py-3 rounded-xl hover:bg-gray-50 transition-colors text-left"
+                >
+                  <span className="font-medium text-gray-900">Contact Us</span>
                 </button>
                 <button
                   onClick={handleWishlistClick}

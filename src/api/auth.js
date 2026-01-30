@@ -1,6 +1,6 @@
 import axios from "axios";
-import { BASE_URL } from "../../utils/urls";
 import toast from "react-hot-toast";
+import { BASE_URL } from "../../utils/urls";
 
 // Create axios instance with base configuration
 const api = axios.create({
