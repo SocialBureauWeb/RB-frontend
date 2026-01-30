@@ -46,8 +46,10 @@ export const getTrendingPlots = async () => {
     }
 
     return data.data || [];
+    console.log("getTrendingPlots", data.data);
   } catch (err) {
     console.error("getTrendingPlots error:", err);
+    console.log("if err ");
     throw err;
   }
 };
