@@ -119,9 +119,10 @@ export default function Reviews() {
                 <div className="relative">
                   <div className="absolute -inset-1 bg-gradient-to-r from-[#2b54a2] to-[#d4a73b] rounded-full blur opacity-0 group-hover:opacity-40 transition-opacity" />
                   <img
-                    src={review.avatar}
+                    src={review.avatar || null}
                     alt={review.name}
                     className="relative w-14 h-14 rounded-full object-cover border-2 border-white/10 group-hover:border-[#d4a73b]/50 transition-all"
+                    onError={(e) => e.target.style.display = 'none'}
                   />
                 </div>
                 <div>

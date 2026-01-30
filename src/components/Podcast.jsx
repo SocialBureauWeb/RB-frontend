@@ -56,9 +56,10 @@ export default function Podcast() {
             <div className="w-full lg:w-56 flex items-center justify-center">
               <div className="w-full lg:w-auto flex flex-col items-center text-center lg:text-center lg:items-center">
                 <img
-                  src={host.image}
+                  src={host.image || null}
                   alt={host.alt || host.name}
                   className="w-28 h-28 md:w-32 md:h-32 rounded-full object-cover shadow-sm"
+                  onError={(e) => e.target.style.display = 'none'}
                 />
 
                 <div className="mt-4">

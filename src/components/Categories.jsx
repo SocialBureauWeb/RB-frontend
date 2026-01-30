@@ -59,10 +59,11 @@ const Categories = () => {
           >
             {/* Image */}
             <img
-              src={item.image}
+              src={item.image || null}
               alt={item.title}
               className="w-full h-64 sm:h-72 md:h-80 object-cover group-hover:scale-105 transition-transform duration-500"
               draggable="false"
+              onError={(e) => e.target.style.display = 'none'}
             />
 
             {/* Dark gradient overlay */}

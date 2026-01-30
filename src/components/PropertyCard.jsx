@@ -278,10 +278,14 @@ export default function PropertyCard({ property, onWishlistChange }) {
       {/* IMAGE */}
       <div className="relative aspect-[4/3] bg-gray-100">
         <img
-          src={property.images?.[0]?.url || property.image || "/placeholder.jpg"}
-          alt={property.title}
+          src={property.images?.[0]?.url || property.image || null}
+          alt={property.title || 'Property'}
           className="h-full w-full object-cover"
           loading="lazy"
+          onError={(e) => {
+            e.target.src = '/placeholder.jpg';
+            e.target.onerror = null;
+          }}
         />
 
         {/* HEART */}
