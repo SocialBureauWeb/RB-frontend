@@ -547,9 +547,9 @@ export default function Navbar({ onSearch }) {
               onClick={() => navigate("/")}
             >
               <img
-                src="/assets/realtybureau.png"
+                src="https://res.cloudinary.com/dtwcgfmar/image/upload/v1770275984/RB_Logo_eqqi7q.png"
                 alt="RealtyBureau"
-                className="h-12 w-34 md:h-15 w-34 transition-all duration-300"
+                className="h-40 w-auto md:h-60 w-auto transition-all duration-300"
                 style={{ filter: brandFilter }}
               />
             </div>
