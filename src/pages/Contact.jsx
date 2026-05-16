@@ -342,7 +342,7 @@ const Contact = () => {
         },
         {
             title: 'Visit Us',
-            value: 'Kochi, Kerala, India',
+            value: 'Pillar no :965, chakkalakkal metro, near petta metro station, Upasana Nagar, Maradu, Kochi, Ernakulam, Kerala 682038',
             icon: (
                 <svg className="w-10 h-10 text-[#d4a73b]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -663,7 +663,7 @@ const Contact = () => {
             {/* Floating WhatsApp Button */}
             <div className="fixed bottom-6 right-6 z-50">
                 <a
-                    href="https://wa.me/918921840486"
+                    href="https://wa.me/919876543210"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-all hover:scale-110 flex items-center justify-center animate-bounce"

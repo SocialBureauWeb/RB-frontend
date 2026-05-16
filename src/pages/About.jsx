@@ -94,7 +94,7 @@ const About = () => {
                                 <span className="w-2 h-2 rounded-full bg-[#d4a73b]"></span>
                                 <span className="text-sm font-semibold tracking-wide text-[#2b54a2] uppercase">About RealtyBureau</span>
                             </div>
-                            <h1 className="text-5xl md:text-7xl font-black text-[#2b54a2] mb-8 leading-[1.05]">
+                            <h1 className="text-5xl font-serif md:text-7xl font-black text-[#2b54a2] mb-8 leading-[1.05]">
                                 Real Estate <br />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2b54a2] to-[#d4a73b]">Without Boundaries</span>
                             </h1>
