@@ -33,7 +33,7 @@ export const getTrendingPlots = async () => {
       sort: "-createdAt",
     });
 
-    const res = await fetch(`${BASE_URL}/plot?${params}`);
+    const res = await fetch(`${BASE_URL}/api/plot?${params}`);
 
     if (!res.ok) {
       throw new Error(`HTTP ${res.status}: Failed to fetch trending plots`);
@@ -64,7 +64,7 @@ export const getPlotsByCategory = async (category) => {
       approved: "true",
     });
 
-    const res = await fetch(`${BASE_URL}/plot?${params}`);
+    const res = await fetch(`${BASE_URL}/api/plot?${params}`);
 
     if (!res.ok) {
       throw new Error(`HTTP ${res.status}: Failed to fetch ${category} plots`);
@@ -108,7 +108,7 @@ export const getCategoryCounts = async () => {
  */
 export const getPlotById = async (id) => {
   try {
-    const res = await fetch(`${BASE_URL}/plot/${id}`);
+    const res = await fetch(`${BASE_URL}/api/plot/${id}`);
 
     if (!res.ok) {
       throw new Error(`HTTP ${res.status}: Failed to fetch plot`);
@@ -132,7 +132,7 @@ export const getPlotById = async (id) => {
  */
 export const createPlot = async (plotData) => {
   try {
-    const res = await fetch(`${BASE_URL}/plot/add`, {
+    const res = await fetch(`${BASE_URL}/api/plot/add`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -162,7 +162,7 @@ export const createPlot = async (plotData) => {
  */
 export const updatePlot = async (id, updates) => {
   try {
-    const res = await fetch(`${BASE_URL}/plot/update/${id}`, {
+    const res = await fetch(`${BASE_URL}/api/plot/update/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -192,7 +192,7 @@ export const updatePlot = async (id, updates) => {
  */
 export const deletePlot = async (id) => {
   try {
-    const res = await fetch(`${BASE_URL}/plot/delete/${id}`, {
+    const res = await fetch(`${BASE_URL}/api/plot/delete/${id}`, {
       method: "DELETE",
     });
 
@@ -218,7 +218,7 @@ export const deletePlot = async (id) => {
  */
 export const approvePlot = async (id) => {
   try {
-    const res = await fetch(`${BASE_URL}/plot/approve/${id}`, {
+    const res = await fetch(`${BASE_URL}/api/plot/approve/${id}`, {
       method: "PATCH",
     });
 

@@ -70,7 +70,7 @@ export default function Commercial() {
         )
       });
 
-      const response = await fetch(`${BASE_URL}/plot?${params}`);
+      const response = await fetch(`${BASE_URL}/api/plot?${params}`);
       const data = await response.json();
 
       if (data.success) {

@@ -265,7 +265,7 @@ export default function PropertyDetailsPage() {
   const fetchPropertyDetails = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`${BASE_URL}/plot/${slug}`);
+      const res = await fetch(`${BASE_URL}/api/plot/${slug}`);
       const data = await res.json();
 
       if (data.success) {
@@ -465,10 +465,10 @@ Status: ${property.status}`;
                 ) : (
                   <video
                     controls
-                    poster={allMedia[selectedMediaIndex].thumbnail}
+                    poster={allMedia[selectedMediaIndex].thumbnail || property.images?.[0]?.url || null}
                     className="w-full h-full object-contain"
                   >
-                    <source src={allMedia[selectedMediaIndex].url} type="video/mp4" />
+                    <source src={allMedia[selectedMediaIndex].url || null} type="video/mp4" />
                   </video>
                 )
               ) : (
@@ -499,9 +499,12 @@ Status: ${property.status}`;
                       ) : (
                         <div className="relative w-full h-full bg-gray-800">
                           <img
-                            src={media.thumbnail}
+                            src={media.thumbnail || property.images?.[0]?.url || null}
                             alt="Video thumbnail"
                             className="w-full h-full object-cover opacity-70"
+                            onError={(e) => {
+                              e.target.src = property.images?.[0]?.url || '/placeholder.jpg';
+                            }}
                           />
                           <div className="absolute inset-0 flex items-center justify-center">
                             <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">

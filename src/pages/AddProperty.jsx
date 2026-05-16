@@ -76,7 +76,7 @@ export default function AddProperty() {
         const formDataObj = new FormData();
         formDataObj.append("file", file);
 
-        const res = await fetch(`${BASE_URL}/upload/image`, {
+        const res = await fetch(`${BASE_URL}/api/upload/image`, {
           method: "POST",
           body: formDataObj,
         });
@@ -135,7 +135,7 @@ export default function AddProperty() {
     formDataObj.append('file', file);
 
     try {
-      const response = await fetch(`${BASE_URL}/upload/video`, {
+      const response = await fetch(`${BASE_URL}/api/upload/video`, {
         method: 'POST',
         body: formDataObj,
       });
@@ -207,7 +207,7 @@ export default function AddProperty() {
     }
 
     try {
-      const response = await fetch(`${BASE_URL}/plot/add`, {
+      const response = await fetch(`${BASE_URL}/api/plot/add`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

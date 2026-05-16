@@ -43,7 +43,7 @@ export default function Wishlist() {
 
       // Fetch full property details for each ID
       const responses = await Promise.all(
-        ids.map((id) => axios.get(`${BASE_URL}/plot/${id}`))
+        ids.map((id) => axios.get(`${BASE_URL}/api/plot/${id}`))
       );
 
       const properties = responses.map((r) => r.data.data);

@@ -278,7 +278,7 @@ export default function PropertyCard({ property, onWishlistChange }) {
       {/* IMAGE */}
       <div className="relative aspect-[4/3] bg-gray-100">
         <img
-          src={property.images?.[0]?.url || property.image || null}
+          src={property.images?.[0]?.url || property.videos?.[0]?.thumbnail || property.image || null}
           alt={property.title || 'Property'}
           className="h-full w-full object-cover"
           loading="lazy"
