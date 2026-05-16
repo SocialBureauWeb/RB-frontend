@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 
 export const Comingsoon = () => {
   const images = [
+
+    //do we need this
     "https://res.cloudinary.com/dtwcgfmar/image/upload/v1761137500/Untitled_design_3_1_ox344f.png",
     "https://res.cloudinary.com/dtwcgfmar/image/upload/v1761127062/5_sookqw.png",
     "https://res.cloudinary.com/dtwcgfmar/image/upload/v1761127061/3_jdefi1.png",
@@ -108,13 +110,13 @@ export const Comingsoon = () => {
         );
       })} */}
       <video
-    src="https://res.cloudinary.com/dtwcgfmar/video/upload/v1763794985/copy_ED8325DB-53DC-47E4-896A-36466901BAD1_hqt1d2.mov"
-    className="w-full h-full object-cover"
-    autoPlay
-    muted
-    loop
-    playsInline
-  />
+        src="https://pub-dbc24446d37a40aeb1dfdd10992cd2d9.r2.dev/copy_ED8325DB-53DC-47E4-896A-36466901BAD1_hqt1d2.mov"
+        className="w-full h-full object-cover"
+        autoPlay
+        muted
+        loop
+        playsInline
+      />
     </div>
   );
 };
