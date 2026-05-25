@@ -28,7 +28,6 @@ import { BASE_URL } from "../utils/urls";
 export const getTrendingPlots = async () => {
   try {
     const params = new URLSearchParams({
-      approved: "true",
       limit: "10",
       sort: "-createdAt",
     });
@@ -61,7 +60,6 @@ export const getPlotsByCategory = async (category) => {
   try {
     const params = new URLSearchParams({
       category,
-      approved: "true",
     });
 
     const res = await fetch(`${BASE_URL}/api/plot?${params}`);

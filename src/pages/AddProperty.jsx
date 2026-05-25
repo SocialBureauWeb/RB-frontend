@@ -47,7 +47,7 @@ export default function AddProperty() {
         ...prev,
         plotSize: { ...prev.plotSize, [field]: value }
       }));
-    } 
+    }
     else {
       setFormData(prev => ({ ...prev, [name]: value }));
     }
@@ -84,8 +84,10 @@ export default function AddProperty() {
         const data = await res.json();
 
         if (data.success) {
+          const fullUrl = data.data.url;
+          const filename = fullUrl.substring(fullUrl.lastIndexOf('/') + 1);
           uploadedImages.push({
-            url: data.data.url,
+            url: filename,
             alt: file.name,
           });
         }
@@ -143,13 +145,15 @@ export default function AddProperty() {
       const data = await response.json();
 
       if (data.success) {
+        const fullUrl = data.data.url;
+        const filename = fullUrl.substring(fullUrl.lastIndexOf('/') + 1);
         setFormData(prev => ({
           ...prev,
-          videos: [...prev.videos, { 
-            url: data.data.url, 
+          videos: [...prev.videos, {
+            url: filename,
             thumbnail: videoInput.thumbnail || '',
             duration: videoInput.duration ? Number(videoInput.duration) : undefined,
-            alt: videoInput.alt || file.name 
+            alt: videoInput.alt || file.name
           }]
         }));
         setVideoInput({ url: '', thumbnail: '', duration: '', alt: '' });
@@ -267,11 +271,10 @@ export default function AddProperty() {
 
           {message.text && (
             <div
-              className={`mb-6 rounded-md px-4 py-3 border ${
-                message.type === 'success'
+              className={`mb-6 rounded-md px-4 py-3 border ${message.type === 'success'
                   ? 'bg-green-50 text-green-800 border-green-200'
                   : 'bg-red-50 text-red-800 border-red-200'
-              }`}
+                }`}
               role="status"
             >
               {message.text}
@@ -604,9 +607,8 @@ export default function AddProperty() {
               type="submit"
               disabled={loading}
               aria-disabled={loading}
-              className={`mt-6 px-5 py-3 text-base font-semibold rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#2b54a2] ${
-                loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#2b54a2] hover:bg-[#1e3f7a]'
-              }`}
+              className={`mt-6 px-5 py-3 text-base font-semibold rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#2b54a2] ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#2b54a2] hover:bg-[#1e3f7a]'
+                }`}
             >
               {loading ? 'Adding Property...' : 'Add Property'}
             </button>

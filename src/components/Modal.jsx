@@ -236,7 +236,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { BASE_URL } from "../../utils/urls";
+import { BASE_URL, getMediaUrl } from "../../utils/urls";
 
 export default function PropertyDetailsPage() {
   const { slug } = useParams();
@@ -458,17 +458,17 @@ Status: ${property.status}`;
               {allMedia.length > 0 ? (
                 allMedia[selectedMediaIndex].type === 'image' ? (
                   <img
-                    src={allMedia[selectedMediaIndex].url}
+                    src={getMediaUrl(allMedia[selectedMediaIndex].url)}
                     alt={allMedia[selectedMediaIndex].alt || property.title}
                     className="w-full h-full object-contain"
                   />
                 ) : (
                   <video
                     controls
-                    poster={allMedia[selectedMediaIndex].thumbnail || property.images?.[0]?.url || null}
+                    poster={getMediaUrl(allMedia[selectedMediaIndex].thumbnail) || getMediaUrl(property.images?.[0]?.url) || null}
                     className="w-full h-full object-contain"
                   >
-                    <source src={allMedia[selectedMediaIndex].url || null} type="video/mp4" />
+                    <source src={getMediaUrl(allMedia[selectedMediaIndex].url) || null} type="video/mp4" />
                   </video>
                 )
               ) : (
@@ -492,7 +492,7 @@ Status: ${property.status}`;
                     >
                       {media.type === 'image' ? (
                         <img
-                          src={media.url}
+                          src={getMediaUrl(media.url)}
                           alt={media.alt || property.title}
                           className="w-full h-full object-cover"
                         />

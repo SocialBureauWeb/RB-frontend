@@ -170,9 +170,9 @@
 
 
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { BASE_URL } from "../../utils/urls";
+import { BASE_URL, getMediaUrl } from "../../utils/urls";
 
 export default function PropertyCard({ property, onWishlistChange }) {
   const [saved, setSaved] = useState(false);
@@ -278,7 +278,7 @@ export default function PropertyCard({ property, onWishlistChange }) {
       {/* IMAGE */}
       <div className="relative aspect-[4/3] bg-gray-100">
         <img
-          src={property.images?.[0]?.url || property.videos?.[0]?.thumbnail || property.image || null}
+          src={getMediaUrl(property.images?.[0]?.url) || getMediaUrl(property.videos?.[0]?.thumbnail) || getMediaUrl(property.image) || null}
           alt={property.title || 'Property'}
           className="h-full w-full object-cover"
           loading="lazy"

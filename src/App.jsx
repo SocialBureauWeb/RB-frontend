@@ -20,28 +20,6 @@ import { checkTokenExpiration } from './api/auth'
 // import PropertyDetail from './pages/PropertyDetail'
 
 export default function App() {
-  // // Check token expiration on app load and periodically
-  // useEffect(() => {
-  //   // Check immediately on app load
-  //   checkTokenExpiration();
-
-  //   // Check every 30 seconds for token expiration (more frequent for testing with 1m token)
-  //   const interval = setInterval(() => {
-  //     checkTokenExpiration();
-  //   }, 30000); // 30 seconds
-
-  //   return () => clearInterval(interval);
-  // }, []);
-
-  // const [loading, setLoading] = useState(true);
-
-  // useEffect(() => {
-  //   const timer = setTimeout(() => setLoading(false), 1200);
-  //   return () => clearTimeout(timer);
-  // }, []);
-
-  // if (loading) return <BlobLoader />
-
 
   return (
     <>

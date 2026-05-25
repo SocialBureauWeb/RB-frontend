@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'; // Add this import
 import PropertyCard from '../components/PropertyCard';
 import Navbar from '../components/Navbar';
 import toast from 'react-hot-toast'; // Add this import
-import { BASE_URL } from '../../utils/urls';
+import { BASE_URL, getMediaUrl } from '../../utils/urls';
 
 export default function Commercial() {
   const [plots, setPlots] = useState([]);
@@ -356,7 +356,7 @@ export default function Commercial() {
                     <div className="relative h-48 bg-gray-200 overflow-hidden">
                       {plot.images && plot.images.length > 0 ? (
                         <img
-                          src={plot.images[0].url}
+                          src={getMediaUrl(plot.images[0].url)}
                           alt={plot.images[0].alt || plot.title}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                         />
