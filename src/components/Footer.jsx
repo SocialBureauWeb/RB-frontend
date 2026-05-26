@@ -416,11 +416,8 @@ export default function Footer() {
               <img
                 src="/assets/realtybureau.png"
                 alt="RealtyBureau"
-                className="h-10"
+                className="h-18"
               />
-              <span className="text-xl font-bold text-white">
-                RealtyBureau
-              </span>
             </div>
             <p className="text-sm text-gray-400">
               Your trusted partner in real estate. Finding your perfect home is our priority.
