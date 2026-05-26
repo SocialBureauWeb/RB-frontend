@@ -414,7 +414,7 @@ export default function Footer() {
               onClick={() => navigate("/")}
             >
               <img
-                src="/assets/realtybureau.png"
+                src="https://pub-551ad76f06a94ab19c65c540e6bf9ac7.r2.dev/realtybureau.png"
                 alt="RealtyBureau"
                 className="h-18"
               />
